@@ -77,6 +77,15 @@ const getDepartments = () => {
 
 };
 
+const getRoles = () => {
+    const sql = `SELECT id, role FROM role`;
+    connection.query(sql, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      initialPrompt();
+    });
+}
+
 
 
 initialPrompt();
