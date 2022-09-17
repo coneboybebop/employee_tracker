@@ -68,22 +68,45 @@ const initialPrompt = () => {
 };
 
 const getDepartments = () => {
-    const sql = `SELECT id, name FROM department`;
-    connection.query(sql, (err, res) => {
-      if (err) throw err;
-      console.table(res);
-      initialPrompt();
-    });
+  const sql = `SELECT id, name FROM department`;
+  connection.query(sql, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    initialPrompt();
+  });
 
 };
 
 const getRoles = () => {
-    const sql = `SELECT id, role FROM role`;
-    connection.query(sql, (err, res) => {
-      if (err) throw err;
-      console.table(res);
-      initialPrompt();
-    });
+  const sql = `SELECT id, role FROM role`;
+  connection.query(sql, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    initialPrompt();
+  });
+};
+
+const getEmployees = () => {
+  const sql = `SELECT first_name, last_name FROM employee`;
+  connection.query(sql, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    initialPrompt();
+  });
+};
+
+const addDepartment = () => {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "newDepartment",
+      message: "What is the name of the new department?"
+    }
+  ]).then(function ({ newDepartment }) {
+    const sql = `INSERT into DEPARTMENT SET ?`;
+    connection.query(sql, {name: newDepartment});
+    initialPrompt();
+  });
 }
 
 
