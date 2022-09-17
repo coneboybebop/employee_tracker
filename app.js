@@ -105,9 +105,67 @@ const addDepartment = () => {
   ]).then(function ({ newDepartment }) {
     const sql = `INSERT into DEPARTMENT SET ?`;
     connection.query(sql, {name: newDepartment});
+    console.log("New Department succesfully added!")
     initialPrompt();
   });
-}
+};
+
+const addRole = () => {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "newRole",
+      message: "What is the name of the new role?"
+    },
+    {
+      type: "input",
+      name: "newSalary",
+      message: "What is the yearly salary for the new role?"
+    },
+    {
+      type: "input",
+      name: "roleDept",
+      message: "what is the department id for the new role?"
+    }
+  ]).then(function ({ newRole, newSalary, roleDept }) {
+    const sql =  `INSERT into ROLE SET ?`;
+    connection.query(sql, {role: newRole, salary: newSalary, dep_id: roleDept});
+    console.log("New Role succesfully added!")
+    initialPrompt();
+  });
+};
+
+const addEmployee = () => {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "newFirst",
+      message: "What is the first name of the new employee?"
+    },
+    {
+      type: "input",
+      name: "newLast",
+      message: "What is the last name of the new employee?"
+    },
+    {
+      type: "input",
+      name: "empRole",
+      message: "What is the role id for the new employee?"
+    },
+    {
+      type: "input",
+      name: "empManager",
+      message: "What is the id of this employee's manager?"
+    }
+  ]).then(function ({ newFirst, newLast, empRole, empManager }) {
+    const sql = `INSERT into EMPLOYEE SET ?`;
+    connection.query(sql, {first_name: newFirst, last_name: newLast, role_id: empRole, manager_id: empManager });
+    console.log("New employee succesfully added!")
+    initialPrompt();
+  });
+};
+
+
 
 
 
