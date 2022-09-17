@@ -78,7 +78,7 @@ const getDepartments = () => {
 };
 
 const getRoles = () => {
-  const sql = `SELECT id, role FROM role`;
+  const sql = `SELECT id, role, dep_id FROM role`;
   connection.query(sql, (err, res) => {
     if (err) throw err;
     console.table(res);
@@ -87,7 +87,7 @@ const getRoles = () => {
 };
 
 const getEmployees = () => {
-  const sql = `SELECT first_name, last_name FROM employee`;
+  const sql = `SELECT first_name, last_name, role_id, manager_id FROM employee`;
   connection.query(sql, (err, res) => {
     if (err) throw err;
     console.table(res);
@@ -105,7 +105,7 @@ const addDepartment = () => {
   ]).then(function ({ newDepartment }) {
     const sql = `INSERT into DEPARTMENT SET ?`;
     connection.query(sql, {name: newDepartment});
-    console.log("New Department succesfully added!")
+    console.log("New Department succesfully added!");
     initialPrompt();
   });
 };
@@ -130,7 +130,7 @@ const addRole = () => {
   ]).then(function ({ newRole, newSalary, roleDept }) {
     const sql =  `INSERT into ROLE SET ?`;
     connection.query(sql, {role: newRole, salary: newSalary, dep_id: roleDept});
-    console.log("New Role succesfully added!")
+    console.log("New Role succesfully added!");
     initialPrompt();
   });
 };
@@ -160,13 +160,10 @@ const addEmployee = () => {
   ]).then(function ({ newFirst, newLast, empRole, empManager }) {
     const sql = `INSERT into EMPLOYEE SET ?`;
     connection.query(sql, {first_name: newFirst, last_name: newLast, role_id: empRole, manager_id: empManager });
-    console.log("New employee succesfully added!")
+    console.log("New employee succesfully added!");
     initialPrompt();
   });
 };
-
-
-
 
 
 initialPrompt();
